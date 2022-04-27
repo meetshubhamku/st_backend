@@ -34,13 +34,16 @@ exports.signup = (req, res) => {
       is_blocked,
     })
       .then((data) => {
-        return res.json({
-          data: "Signup successful.",
+        return res.status(200).json({
+          message: "Signup successful.",
           success: true,
         });
       })
-      .catch((err) => {
-        return res.json({ error: err });
+      .catch((error) => {
+        return res.json({
+          error: error.errors[0],
+          message: error.errors[0].message,
+        });
       });
   } else if (userType === "customer") {
     User.create({
@@ -53,13 +56,16 @@ exports.signup = (req, res) => {
       is_blocked,
     })
       .then((data) => {
-        return res.json({
-          data: "Signup successful.",
+        return res.status(200).json({
+          message: "Signup successful.",
           success: true,
         });
       })
-      .catch((err) => {
-        return res.json({ error: err });
+      .catch((error) => {
+        return res.json({
+          error: error.errors[0],
+          message: error.errors[0].message,
+        });
       });
   }
 };
@@ -84,6 +90,7 @@ exports.signin = (req, res) => {
           const token = jwt.sign({ id: data.id }, config.default.SECRET);
           res.cookie("ScissorTalesToken", token, { expire: new Date() + 9999 });
           return res.json({
+            success: true,
             token,
             user: {
               id: data.id,
@@ -139,7 +146,7 @@ exports.signin = (req, res) => {
 };
 
 exports.signout = (req, res) => {
-  res.clearCookie("testAssignmentToken");
+  res.clearCookie("ScissorTalesToken");
   res.send("Signout Successful");
 };
 

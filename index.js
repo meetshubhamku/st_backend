@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 const port = config.default.port;
 const { sequelize } = require("./database/Database");
 const server = http.createServer(app);
@@ -17,6 +19,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", employeeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!");
