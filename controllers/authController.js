@@ -99,17 +99,21 @@ exports.signin = (req, res) => {
               email: data.email,
               role: data.role,
               is_blocked: data.is_blocked,
+              userType: userType,
             },
           });
         } else {
           return res.json({
-            error: "Invalid credentials.",
+            success: false,
+            message: "Invalid User.",
           });
         }
       })
-      .catch((err) => {
+      .catch((error) => {
         return res.json({
-          error: "Invalid user.",
+          success: false,
+          message: "Invalid User",
+          error,
         });
       });
   } else if (userType === "employee") {
@@ -121,6 +125,7 @@ exports.signin = (req, res) => {
           const token = jwt.sign({ id: data.id }, config.default.SECRET);
           res.cookie("ScissorTalesToken", token, { expire: new Date() + 9999 });
           return res.json({
+            success: true,
             token,
             user: {
               id: data.id,
@@ -129,6 +134,7 @@ exports.signin = (req, res) => {
               email: data.email,
               role: data.role,
               is_blocked: data.is_blocked,
+              userType: userType,
             },
           });
         } else {
@@ -156,7 +162,7 @@ exports.isSignedIn = expressJwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  const checker = req.profile && req.auth && req.profile.user_id == req.auth.id;
+  const checker = req.profile && req.auth && req.profile.id == req.auth.id;
   if (!checker) {
     return res.status(403).json({
       error: "Access Denied. Please Login",
@@ -166,7 +172,7 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.profile.user_role != 2) {
+  if (req.profile.role !== 2) {
     return res.status(403).json({
       error: "Not an ADMIN, Access DENIED",
     });

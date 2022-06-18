@@ -7,9 +7,9 @@ exports.getAllEmployees = (req, res) => {
     },
   })
     .then((data) => {
-      res.status(200).json(data);
+      return res.status(200).json(data);
     })
     .catch((err) => {
-      res.status(403).json({ error: err });
+      return res.status(403).json({ error: err });
     });
 };

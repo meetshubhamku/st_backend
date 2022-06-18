@@ -8,6 +8,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
+const serviceRoutes = require("./routes/serviceRoutes");
+const serviceCategoryRoutes = require("./routes/serviceCategoryRoutes");
 const port = config.default.port;
 const { sequelize } = require("./database/Database");
 const server = http.createServer(app);
@@ -21,6 +23,8 @@ app.use(cors());
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", employeeRoutes);
+app.use("/api", serviceRoutes);
+app.use("/api", serviceCategoryRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!");
