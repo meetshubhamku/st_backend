@@ -10,6 +10,7 @@ const userRoutes = require("./routes/userRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const serviceCategoryRoutes = require("./routes/serviceCategoryRoutes");
+const offerRoutes = require("./routes/offerRoutes");
 const port = config.default.port;
 const { sequelize } = require("./database/Database");
 const server = http.createServer(app);
@@ -25,6 +26,7 @@ app.use("/api", userRoutes);
 app.use("/api", employeeRoutes);
 app.use("/api", serviceRoutes);
 app.use("/api", serviceCategoryRoutes);
+app.use("/api", offerRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!");

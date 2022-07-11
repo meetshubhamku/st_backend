@@ -1,5 +1,5 @@
 const Service = require("../model/Service");
-const ServiceCategory = require("../model/ServiceCategory");
+const Category = require("../model/ServiceCategory");
 exports.addService = async (req, res) => {
   try {
     const body = req.body;
@@ -40,7 +40,7 @@ exports.updateService = async (req, res) => {
 exports.getAllServices = async (req, res) => {
   try {
     const AllServices = await Service.findAll({
-      include: { model: ServiceCategory, required: true },
+      include: { model: Category, required: true },
     });
     return res.status(200).json({
       success: true,

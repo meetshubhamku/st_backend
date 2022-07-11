@@ -1,25 +1,8 @@
-const Category = require("../model/ServiceCategory");
+const Offer = require("../model/Offer");
 
-exports.addServiceCategory = async (req, res) => {
+exports.getOffer = async (req, res) => {
   try {
-    const body = req.body;
-    const newService = await Category.create(body);
-    return res.status(200).json({
-      success: true,
-      data: newService,
-    });
-  } catch (error) {
-    return res.status(401).json({
-      error,
-      success: false,
-      message: error,
-    });
-  }
-};
-
-exports.getAllServicesCategory = async (req, res) => {
-  try {
-    const AllServices = await Category.findAll();
+    const AllServices = await Offer.findAll();
     return res.status(200).json({
       success: true,
       data: AllServices,
@@ -33,10 +16,27 @@ exports.getAllServicesCategory = async (req, res) => {
   }
 };
 
-exports.updateServiceCategory = async (req, res) => {
+exports.addOffer = async (req, res) => {
   try {
     const body = req.body;
-    const newService = await Category.update(body, {
+    const newService = await Offer.create(body);
+    return res.status(200).json({
+      success: true,
+      data: newService,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      error,
+      message: error,
+    });
+  }
+};
+
+exports.updateOffer = async (req, res) => {
+  try {
+    const body = req.body;
+    const newService = await Offer.update(body, {
       where: {
         id: body.id,
       },
@@ -54,16 +54,16 @@ exports.updateServiceCategory = async (req, res) => {
   }
 };
 
-exports.deleteServiceCategory = async (req, res) => {
+exports.deleteOffer = async (req, res) => {
   try {
-    const data = await Category.destroy({
+    const output = await Offer.destroy({
       where: {
         id: req.body.id,
       },
     });
     return res.status(200).json({
       success: true,
-      data: data,
+      data: output,
     });
   } catch (error) {
     return res.status(401).json({

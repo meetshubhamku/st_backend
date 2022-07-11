@@ -1,24 +1,30 @@
 const sequelize = require("./Connection");
 const User = require("../model/User");
 const Employee = require("../model/Employee");
-const Category = require("../model/Category");
 const Service = require("../model/Service");
-const ServiceCategory = require("../model/ServiceCategory");
+const Offer = require("../model/Offer");
+const Category = require("../model/ServiceCategory");
+const ServiceOffer = require("../model/ServiceOffer");
 
 User.sync({
-  alter: true,
+  alter: false,
 });
 Employee.sync({
-  alter: true,
+  alter: false,
 });
+
 Category.sync({
-  alter: true,
+  alter: false,
 });
+
 Service.sync({
-  alter: true,
+  alter: false,
 });
-ServiceCategory.sync({
-  alter: true,
+Offer.sync({
+  alter: false,
+});
+ServiceOffer.sync({
+  alter: false,
 });
 
 module.exports = {
@@ -27,5 +33,6 @@ module.exports = {
   Employee,
   Category,
   Service,
-  ServiceCategory,
+  Offer,
+  ServiceOffer,
 };

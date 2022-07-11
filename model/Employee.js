@@ -4,6 +4,11 @@ const Employee = sequelize.define(
   "employee",
   {
     // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,6 +21,9 @@ const Employee = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -27,7 +35,12 @@ const Employee = sequelize.define(
     },
     role: {
       type: DataTypes.INTEGER,
-      defaultValue: 1,
+      defaultValue: 0,
+      validate: {
+        isNumeric: true,
+        min: 1,
+        max: 2,
+      },
     },
     is_blocked: {
       type: DataTypes.BOOLEAN,

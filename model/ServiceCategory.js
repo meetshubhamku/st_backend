@@ -1,10 +1,14 @@
 const sequelize = require("../database/Connection");
 const { DataTypes } = require("sequelize");
-const Service = require("./Service");
-const ServiceCategory = sequelize.define(
-  "service_category",
+const Category = sequelize.define(
+  "category",
   {
     // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,4 +24,4 @@ const ServiceCategory = sequelize.define(
   }
 );
 
-module.exports = ServiceCategory;
+module.exports = Category;

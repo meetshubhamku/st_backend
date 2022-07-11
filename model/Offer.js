@@ -1,8 +1,7 @@
 const sequelize = require("../database/Connection");
 const { DataTypes } = require("sequelize");
-const Category = require("./ServiceCategory");
-const Service = sequelize.define(
-  "service",
+const Offer = sequelize.define(
+  "offer",
   {
     // Model attributes are defined here
     id: {
@@ -18,19 +17,18 @@ const Service = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    price: {
-      type: DataTypes.FLOAT,
+    startDate: {
+      type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        isFloat: true,
-        min: 1,
+        isDate: true,
       },
     },
-    category_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Category,
-        key: "id",
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        isDate: true,
       },
     },
   },
@@ -40,9 +38,5 @@ const Service = sequelize.define(
   }
 );
 //
-Service.hasOne(Category, {
-  foreignKey: "id",
-  sourceKey: "category_id",
-});
 
-module.exports = Service;
+module.exports = Offer;

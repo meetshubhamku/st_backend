@@ -4,6 +4,11 @@ const User = sequelize.define(
   "user",
   {
     // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,6 +21,9 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -28,6 +36,10 @@ const User = sequelize.define(
     role: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 0,
+      },
     },
     is_blocked: {
       type: DataTypes.BOOLEAN,
