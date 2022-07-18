@@ -6,7 +6,6 @@ const {
 } = require("../controllers/authController");
 const {
   getAppointments,
-  getAppointment,
   addAppointment,
   updateAppointment,
   deleteAppointment,

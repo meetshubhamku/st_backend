@@ -52,12 +52,17 @@ exports.getAppointments = async (req, res) => {
 exports.updateAppointment = async (req, res) => {
   try {
     const body = req.body;
-    console.log("Appoint : ", body);
-    //   const newService = await Service.create(body);
-    //   return res.status(200).json({
-    //     success: true,
-    //     data: newService,
-    //   });
+    body.date = moment(body.date).format("YYYY-MM-DD");
+    console.error("app : ", body);
+    const newService = await Appointment.update(body, {
+      where: {
+        id: body.id,
+      },
+    });
+    return res.status(200).json({
+      success: true,
+      data: newService,
+    });
   } catch (error) {
     return res.status(401).json({
       success: false,
@@ -69,13 +74,15 @@ exports.updateAppointment = async (req, res) => {
 
 exports.deleteAppointment = async (req, res) => {
   try {
-    const body = req.body;
-    console.log("Appoint : ", body);
-    //   const newService = await Service.create(body);
-    //   return res.status(200).json({
-    //     success: true,
-    //     data: newService,
-    //   });
+    const output = await Appointment.destroy({
+      where: {
+        id: req.body.id,
+      },
+    });
+    return res.status(200).json({
+      success: true,
+      data: output,
+    });
   } catch (error) {
     return res.status(401).json({
       success: false,
