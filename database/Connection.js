@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize("scissor_tales", "root", "", {
   host: "localhost",
   dialect: "mysql",
+  logging: false,
 });
 
 // const sequelize = new Sequelize(

@@ -15,9 +15,12 @@ exports.getAllEmployees = (req, res) => {
     },
   })
     .then((data) => {
-      return res.status(200).json(data);
+      return res.status(200).json({
+        data,
+        success: true,
+      });
     })
     .catch((err) => {
-      return res.status(403).json({ error: err });
+      return res.status(403).json({ error: err, success: false });
     });
 };

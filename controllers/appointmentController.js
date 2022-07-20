@@ -3,6 +3,8 @@ const moment = require("moment");
 const Service = require("../model/Service");
 const Employee = require("../model/Employee");
 const User = require("../model/User");
+const { Op, Sequelize } = require("sequelize");
+const sequelize = require("sequelize");
 exports.addAppointment = async (req, res) => {
   try {
     const body = req.body;
@@ -49,11 +51,40 @@ exports.getAppointments = async (req, res) => {
   }
 };
 
+exports.getAppointmentsByDate = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+    const resdata = await Appointment.findAll({
+      attributes: [
+        "status",
+        "date",
+        [Sequelize.fn("COUNT", Sequelize.col("status")), "count"],
+      ],
+      where: {
+        date: {
+          [Op.between]: [startDate, endDate],
+        },
+      },
+      group: "status",
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: resdata,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      error,
+      message: error,
+    });
+  }
+};
+
 exports.updateAppointment = async (req, res) => {
   try {
     const body = req.body;
     body.date = moment(body.date).format("YYYY-MM-DD");
-    console.error("app : ", body);
     const newService = await Appointment.update(body, {
       where: {
         id: body.id,

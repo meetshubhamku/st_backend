@@ -9,6 +9,7 @@ const {
   addAppointment,
   updateAppointment,
   deleteAppointment,
+  getAppointmentsByDate,
 } = require("../controllers/appointmentController");
 const { getUser } = require("../controllers/userController");
 
@@ -20,6 +21,13 @@ router.get(
   isSignedIn,
   isAuthenticated,
   getAppointments
+);
+router.post(
+  "/:user_id/:userType/appointments/date",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  getAppointmentsByDate
 );
 router.post(
   "/:user_id/:userType/appointment",
