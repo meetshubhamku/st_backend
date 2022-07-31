@@ -163,9 +163,25 @@ exports.isSignedIn = expressJwt({
 
 exports.isAuthenticated = (req, res, next) => {
   const checker = req.profile && req.auth && req.profile.id == req.auth.id;
+
+  if (req.profile.is_blocked) {
+    return res.status(403).json({
+      success: false,
+      data: "Access Denied. Your account is blocked. PLease contact administrator",
+      message:
+        "Access Denied. Your account is blocked. PLease contact administrator",
+
+      error:
+        "Access Denied. Your account is blocked. PLease contact administrator",
+    });
+  }
+
   if (!checker) {
     return res.status(403).json({
+      success: false,
       error: "Access Denied. Please Login",
+      data: "Access Denied. Please Login",
+      message: "Access Denied. Please Login",
     });
   }
   next();
