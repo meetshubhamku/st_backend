@@ -5,6 +5,7 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
@@ -12,6 +13,7 @@ const serviceRoutes = require("./routes/serviceRoutes");
 const serviceCategoryRoutes = require("./routes/serviceCategoryRoutes");
 const offerRoutes = require("./routes/offerRoutes");
 const appointmentRoutes = require("./routes/appointmentRoute");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const port = config.default.port;
 const { sequelize } = require("./database/Database");
@@ -30,6 +32,7 @@ app.use("/api", serviceRoutes);
 app.use("/api", serviceCategoryRoutes);
 app.use("/api", offerRoutes);
 app.use("/api", appointmentRoutes);
+app.use("/api", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!");
