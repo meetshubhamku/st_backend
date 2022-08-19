@@ -4,6 +4,10 @@ const sequelize = new Sequelize("scissor_tales", "root", "", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
+  dialectOptions: {
+    // Your mysql2 options here
+    timezone: "local",
+  },
 });
 
 // const sequelize = new Sequelize(

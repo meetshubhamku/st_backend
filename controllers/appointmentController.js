@@ -125,6 +125,7 @@ exports.getAppointmentsByDate = async (req, res) => {
       },
       group: "status",
     });
+
     return res.status(200).json({
       success: true,
       data: resdata,

@@ -6,6 +6,7 @@ const Offer = require("../model/Offer");
 const Category = require("../model/ServiceCategory");
 const ServiceOffer = require("../model/ServiceOffer");
 const Appointment = require("../model/Appointment");
+const Payment = require("../model/Payment");
 
 User.sync({
   alter: false,
@@ -30,6 +31,9 @@ ServiceOffer.sync({
 Appointment.sync({
   alter: false,
 });
+Payment.sync({
+  alter: false,
+});
 
 module.exports = {
   sequelize,
@@ -40,4 +44,5 @@ module.exports = {
   Offer,
   ServiceOffer,
   Appointment,
+  Payment,
 };
